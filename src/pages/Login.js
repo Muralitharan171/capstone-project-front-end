@@ -34,43 +34,47 @@ function Login() {
     return formIsValid;
   };
 
+  
+
   const axiosFn = async (url, method, request) => {
-    let response;
     const BASEURL = `https://capstone-backend-5rvl.onrender.com${url}`;
     console.log(`url:${BASEURL}${url}`);
     try {
-      response = await axios.post(BASEURL, request);
+      const response = await axios.post(BASEURL, request);
       console.log('Response:', response);
+      return response;
     } catch (error) {
-      console.log('Error:', error);
+      console.log('Axios Error:', error.response || error.message);
+      throw error; // Rethrow the error for better error handling
     }
-
-    return response;
   };
-
   
   const loginSubmit = async (e) => {
     e.preventDefault();
     let validateSts = handleValidation();
-
+  
     if (validateSts) {
       try {
         const response = await axiosFn(`/login`, 'post', {
           email: email,
           password: password
-          
         });
-
+  
         if (response.status === 200) {
           localStorage.setItem('_token', response.data.data.token);
           localStorage.setItem('email', response.data.data.email);
-          navigate('/dashboard')
+          navigate('/dashboard');
+        } else {
+          // Handle non-200 status codes
+          console.log('Login Error: Unexpected response status', response.status);
         }
       } catch (error) {
+        // Handle Axios error
         console.log("Login Error:", error);
       }
     }
   };
+  
 
   return (
     <div className="App">
