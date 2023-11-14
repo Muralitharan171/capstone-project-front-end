@@ -76,7 +76,7 @@ function SignUp() {
   const axiosFn = async (url, method, request) => {
     //console.log(url + " " + method + " " + request);
     let response;
-    const BASEURL= `http://localhost:4500${url}`;
+    const BASEURL= `https://capstone-backend-5rvl.onrender.com${url}`;
     console.log(`url:${BASEURL}${url}`);
     try {
        response = await axios.post(BASEURL, request);
