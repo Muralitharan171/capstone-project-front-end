@@ -41,6 +41,22 @@ function SignUp() {
     return formIsValid;
   };
 
+  const axiosFn = async (url, method, request) => {
+    //console.log(url + " " + method + " " + request);
+    let response;
+    const BASEURL= `https://capstone-backend-5rvl.onrender.com${url}`;
+    console.log(`url:${BASEURL}${url}`);
+    try {
+       response = await axios.post(BASEURL, request);
+    } catch (e) {
+        console.error(e);
+    }
+  
+    return response;
+  }
+  
+
+
   const signUpSubmit = async (e) => {
     e.preventDefault();
     let validateSts = handleValidation();
@@ -73,20 +89,7 @@ function SignUp() {
   };
   
    
-  const axiosFn = async (url, method, request) => {
-    //console.log(url + " " + method + " " + request);
-    let response;
-    const BASEURL= `https://capstone-backend-5rvl.onrender.com${url}`;
-    console.log(`url:${BASEURL}${url}`);
-    try {
-       response = await axios.post(BASEURL, request);
-    } catch (e) {
-        console.error(e);
-    }
-  
-    return response;
-  }
-  
+ 
 
   return (
     <div className="App">

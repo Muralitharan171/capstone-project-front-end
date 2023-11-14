@@ -36,8 +36,8 @@ function Login() {
 
   const axiosFn = async (url, method, request) => {
     let response;
-    const BASEURL = `https://capstone-backend-5rvl.onrender.com`;
-    console.log(`url:${BASEURL}`);
+    const BASEURL = `https://capstone-backend-5rvl.onrender.com${url}`;
+    console.log(`url:${BASEURL}${url}`);
     try {
       response = await axios.post(BASEURL, request);
       console.log('Response:', response);
