@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import axios from "axios";
 
 const HttpService =async (url, method, request) =>{
-    const BASEURL= `https://capstone-backend-5rvl.onrender.com`;
+    const BASEURL= `https://capstone-backend-5rvl.onrender.com${url}}`;
     console.log(url + " " + method + " " +JSON.stringify(request));
     let response;
     const reqUrl = `${BASEURL}${url}`;    
