@@ -42,16 +42,19 @@ function SignUp() {
   };
 
   const axiosFn = async (url, method, request) => {
-    let response;
+    
     const BASEURL = `https://capstone-backend-5rvl.onrender.com${url}`;
+    console.log(`url:${BASEURL}${url}`);
     try {
-      response = await axios.post(BASEURL, request);
+      const response = await axios.post(BASEURL, request);
+      console.log('Response:', response);
+      return response;
     } catch (error) {
       console.error("Axios error:", error);
       throw error; // Rethrow the error for better error handling
     }
 
-    return response;
+    
   }
 
   const signUpSubmit = async (e) => {

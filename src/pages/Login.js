@@ -52,7 +52,7 @@ function Login() {
   const loginSubmit = async (e) => {
     e.preventDefault();
     let validateSts = handleValidation();
-  
+  console.log(validateSts);
     if (validateSts) {
       try {
         const response = await axiosFn(`/login`, 'post', {
