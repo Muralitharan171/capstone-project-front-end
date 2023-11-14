@@ -42,49 +42,49 @@ function SignUp() {
   };
 
   const axiosFn = async (url, method, request) => {
-    //console.log(url + " " + method + " " + request);
     let response;
-    const BASEURL= `https://capstone-backend-5rvl.onrender.com${url}`;
-    console.log(`url:${BASEURL}${url}`);
+    const BASEURL = `https://capstone-backend-5rvl.onrender.com${url}`;
     try {
-       response = await axios.post(BASEURL, request);
-    } catch (e) {
-        console.error(e);
+      response = await axios.post(BASEURL, request);
+    } catch (error) {
+      console.error("Axios error:", error);
+      throw error; // Rethrow the error for better error handling
     }
-  
+
     return response;
   }
-  
-
 
   const signUpSubmit = async (e) => {
     e.preventDefault();
-    let validateSts = handleValidation();
-    console.log(`sts: ${validateSts}`);
-    
-    if (validateSts) {
-      console.log(`email:${email} password:${password}`);
-      
-      let usersCreate = await axiosFn(`/signup`, 'post', {
-        "password": password,
-        "email": email,
-        "name": email
-      });
-  
-      if (usersCreate.status === 201) {
-        alert("User created successfully!");
-        localStorage.setItem('_token', usersCreate.data.data.token);
-        localStorage.setItem('email', usersCreate.data.data.email);
-        setEmail('');
-        setPassword('');
-        navigate('/dashboard');
-      } else if (usersCreate.data.errorCode === "USER_EXISTS") {
-        alert(usersCreate.data.message);
-      } else {
-        alert("Technical error occurred");
+    let formIsValid = handleValidation();
+
+    if (formIsValid) {
+      try {
+        const usersCreate = await axiosFn("/signup", 'post', {
+          "password": password,
+          "email": email,
+          "name": email
+        });
+
+        if (usersCreate.status === 201) {
+          // Handle success
+          console.log(usersCreate.data);
+          localStorage.setItem('_token', usersCreate.data.data.token);
+          localStorage.setItem('email', usersCreate.data.data.email);
+          setEmail('');
+          setPassword('');
+          navigate('/dashboard');
+        } else if (usersCreate.data.errorCode === "USER_EXISTS") {
+          // Handle user exists error
+          console.error(usersCreate.data.message);
+        } else {
+          // Handle other errors
+          console.error("Technical error occurred");
+        }
+      } catch (error) {
+        // Handle Axios error
+        console.error("Error during signup:", error);
       }
-  
-      console.log(usersCreate);
     }
   };
   
