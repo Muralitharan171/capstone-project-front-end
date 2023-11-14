@@ -42,7 +42,7 @@ function Login() {
       response = await axios.post(BASEURL, request);
       console.log('Response:', response);
     } catch (e) {
-      console.error('Error:', e);
+      console.log('Error:', e);
     }
 
     return response;
@@ -66,7 +66,7 @@ function Login() {
           navigate('/dashboard')
         }
       } catch (error) {
-        console.error("Login Error:", error);
+        console.log("Login Error:", error);
       }
     }
   };
