@@ -36,13 +36,13 @@ function Login() {
 
   const axiosFn = async (url, method, request) => {
     let response;
-    const BASEURL = `https://capstone-backend-5rvl.onrender.com${url}`;
-    console.log(`url:${BASEURL}${url}`);
+    const BASEURL = `https://capstone-backend-5rvl.onrender.com`;
+    console.log(`url:${BASEURL}`);
     try {
       response = await axios.post(BASEURL, request);
       console.log('Response:', response);
-    } catch (e) {
-      console.log('Error:', e);
+    } catch (error) {
+      console.log('Error:', error);
     }
 
     return response;
@@ -56,8 +56,9 @@ function Login() {
     if (validateSts) {
       try {
         const response = await axiosFn(`/login`, 'post', {
-          password: password,
-          email: email
+          email: email,
+          password: password
+          
         });
 
         if (response.status === 200) {
