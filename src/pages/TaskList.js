@@ -13,7 +13,7 @@ function TaskList() {
     useEffect(()=>{
         taskListFetch();
     },[]);    
-
+    
     let taskListFetch = async ()=>{
         console.log("token::"+localStorage.getItem("_token"))        
         let taskGet = await HttpService(`/get/task`, 'GET', {
